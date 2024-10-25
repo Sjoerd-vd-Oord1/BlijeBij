@@ -48,25 +48,6 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Knoppen en details */
-        .button {
-            background-color: #ffaa00;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            text-align: center;
-            display: inline-block;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #ffbb33;
-        }
-
         /* Markeer info-venster stijl */
         .info-window {
             color: #333;
@@ -92,22 +73,32 @@
 <div id="map"></div>
 
 <script>
-    // Locaties van imkers met verhalen
+    // Locaties van imker Paul
     const locations = [
-        { lat: 52.370216, lng: 4.895168, title: "Imker Amsterdam", story: "Dit is een imker in Amsterdam met een mooi verhaal over bijen." },
-        { lat: 51.92442, lng: 4.477733, title: "Imker Rotterdam", story: "Deze imker in Rotterdam vertelt over zijn bijen." }
+        {
+            lat: 51.7312,
+            lng: 5.3186,
+            title: "Dierenwij Maaspoort Den Bosch",
+            story: "Imker Paul is het hele jaar druk bezig met zijn bijen zelf als ze in de winterslaap zijn. De meest voorkomende bloemen in deze omgeving zijn wijde bloemen wat zorgt voor een donkere honing."
+        },
+        {
+            lat: 51.6632,
+            lng: 5.3768,
+            title: "Heidense Hoeve",
+            story: "Imker Paul is het hele jaar druk bezig met zijn bijen zelf als ze in de winterslaap zijn. De meest voorkomende bloemen in deze omgeving zijn wijde bloemen wat zorgt voor een donkere honing."
+        }
     ];
 
-    // Initieer de kaart
+    // Initieer de kaart, gericht op Noord-Brabant
     function initMap() {
         const mapOptions = {
-            zoom: 7,
-            center: { lat: 52.1326, lng: 5.2913 }, // Nederland centraal
+            zoom: 10,
+            center: { lat: 51.6559, lng: 5.3037 }, // Focus op Noord-Brabant, Nederland
         };
         
         const map = new google.maps.Map(document.getElementById("map"), mapOptions);
         
-        // Voeg markers toe
+        // Voeg markers en cirkels toe
         locations.forEach((location) => {
             const marker = new google.maps.Marker({
                 position: { lat: location.lat, lng: location.lng },
@@ -116,6 +107,18 @@
                 icon: {
                     url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png" // Gele markering voor bijenstijl
                 }
+            });
+
+            // Cirkel toevoegen rondom de locatie
+            const circle = new google.maps.Circle({
+                strokeColor: "#FFDD00",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FFEE88",
+                fillOpacity: 0.35,
+                map: map,
+                center: { lat: location.lat, lng: location.lng },
+                radius: 3000 // Radius van 3 kilometer
             });
 
             // Info window voor het verhaal van de imker
@@ -131,7 +134,7 @@
 </script>
 
 <!-- Google Maps API toevoegen -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7mPMo-LKdC9n_wJj07FYXmec_NtE2Klw&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
 
 </body>
 </html>
